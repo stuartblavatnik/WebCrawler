@@ -27,7 +27,7 @@ Thoughts / Improvements
 
 1) I decided to use Jsoup for parsing the webpages.  My thought on this goes back to something I learned at JP Morgan
 when I was doing some training for becoming an Application Security Champion.  The training mentioned that limiting
-the amount of rolling you own code for standard solutions is usually a dangerous practice because you most likely will
+the amount of rolling your own code for standard solutions is usually a dangerous practice because you most likely will
 forget something or implement a solution in the wrong way.  Common libraries have been used for years and (hopefully)
 well tested.
 
