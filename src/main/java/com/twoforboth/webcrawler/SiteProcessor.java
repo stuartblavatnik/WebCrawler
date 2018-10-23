@@ -10,7 +10,11 @@ public class SiteProcessor {
     private String siteRoot = "";
     private ArrayList<URL> traversedURLS = new ArrayList<>();
     private LinkedHashMap<URL, ArrayList<URL>> siteMap = new LinkedHashMap<>();
-    private WebParser webParser = new WebParser();
+
+    private WebParser webParser;
+    public void setWebParser(WebParser webParser) {
+        this.webParser = webParser;
+    }
 
     public void process(URL url) {
 
@@ -20,7 +24,7 @@ public class SiteProcessor {
 
         traversedURLS.add(url);
 
-        ArrayList<URL> pageLinks = null;
+        ArrayList<URL> pageLinks;
 
         try {
             pageLinks = webParser.getPageLinks(url);

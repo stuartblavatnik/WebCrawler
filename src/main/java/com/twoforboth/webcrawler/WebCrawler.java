@@ -14,6 +14,7 @@ public class WebCrawler {
         URL url = validateArguments(args);
 
         try {
+            siteProcessor.setWebParser(new WebParser());
             siteProcessor.process(url);
         }
         catch (Exception exception) {
