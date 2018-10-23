@@ -7,14 +7,6 @@ import java.util.LinkedHashMap;
 
 public class SiteProcessor {
 
-    // Thoughts
-    // Given a URL
-    // parse pagedata
-    // keep a hash of each url -- key is the url -- value is the sublinks
-    // indicate if traversed to -- to prevent multiple traversals
-    // indicate if broken link
-    // this should work in similar fashion of the cities problem
-
     private String siteRoot = "";
     private ArrayList<URL> traversedURLS = new ArrayList<>();
     private LinkedHashMap<URL, ArrayList<URL>> siteMap = new LinkedHashMap<>();
@@ -28,13 +20,13 @@ public class SiteProcessor {
 
         traversedURLS.add(url);
 
-        ArrayList<URL> pageLinks = new ArrayList<>();
+        ArrayList<URL> pageLinks = null;
 
         try {
             pageLinks = webParser.getPageLinks(url);
         }
         catch (IOException ioException) {
-
+            pageLinks = new ArrayList<>();
         }
 
         if (!siteMap.containsKey(url)) {

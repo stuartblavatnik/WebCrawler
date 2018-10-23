@@ -11,6 +11,22 @@ public class WebCrawler {
 
     public static void main(String[] args) {
 
+        URL url = validateArguments(args);
+
+        try {
+            siteProcessor.process(url);
+        }
+        catch (Exception exception) {
+            System.out.println("Error processing.");
+            exit(1);
+        }
+
+        System.out.println(siteProcessor.getReport());
+        exit(0);
+    }
+
+    private static URL validateArguments(String[] args) {
+
         if (args.length != 1) {
             System.out.println("Usage: WebCrawler URL");
             exit(1);
@@ -26,15 +42,6 @@ public class WebCrawler {
             exit(1);
         }
 
-        try {
-            siteProcessor.process(url);
-        }
-        catch (Exception exception) {
-            System.out.println("Error processing.");
-            exit(1);
-        }
-
-        System.out.println(siteProcessor.getReport());
+        return url;
     }
-
 }
