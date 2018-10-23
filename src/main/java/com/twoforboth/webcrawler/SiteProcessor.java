@@ -46,11 +46,11 @@ public class SiteProcessor {
 
         for (URL site : siteMap.keySet()) {
             stringBuilder.append(site.toString());
-            stringBuilder.append("\r\n");
+            stringBuilder.append(System.lineSeparator());
             for (URL siteLinks : siteMap.get(site)) {
                 stringBuilder.append('\t');
                 stringBuilder.append(siteLinks.toString());
-                stringBuilder.append("\r\n");
+                stringBuilder.append(System.lineSeparator());
             }
         }
 
