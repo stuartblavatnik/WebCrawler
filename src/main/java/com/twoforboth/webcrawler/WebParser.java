@@ -23,15 +23,15 @@ public class WebParser {
 
     private final UrlValidator urlValidator = new UrlValidator();
 
-    public ArrayList<URL> getPageLinks(URL url) throws IOException {
+    public ArrayList<String> getPageLinks(String url) throws IOException {
 
-        ArrayList<URL> pageLinks = new ArrayList<>();
+        ArrayList<String> pageLinks = new ArrayList<>();
 
-        Document document = null;
+        Document document;
 
         try {
             document = Jsoup
-                    .connect(url.toString())
+                    .connect(url)
                     .ignoreContentType(true)
                     .get();
         }
@@ -44,14 +44,13 @@ public class WebParser {
             for (Element link : document.select(linkType)) {
 
                 String absoluteURLString = link.absUrl(linkTypes.get(linkType));
-                if (urlValidator.isValid(absoluteURLString)) {
-                    URL foundLink = new URL(absoluteURLString);
+                if (urlValidator.isValid(absoluteURLString) && (!absoluteURLString.contains("#"))){
+                    String foundLink = new URL(absoluteURLString).toString();
                     if (!pageLinks.contains(foundLink)) {
                         pageLinks.add(foundLink);
                     }
                 }
             }
-
         }
 
         return pageLinks;

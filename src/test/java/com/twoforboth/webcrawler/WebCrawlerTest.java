@@ -11,16 +11,6 @@ public class WebCrawlerTest {
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Test
-    public void shouldExitWithStatusZeroForValidRun() {
-
-        exit.expectSystemExitWithStatus(0);
-
-        String args[] = new String[] { "http://wiprodigital.com" };
-
-        WebCrawler.main(args);
-    }
-
-    @Test
     public void shouldExitWithStatusOneForInvalidURL() {
 
         exit.expectSystemExitWithStatus(1);

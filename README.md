@@ -43,3 +43,12 @@ demo project.  For robustness I would have definitely used a database.
 5) If this crawler was meant to work on multiple sites, I would have gone into the fun world of threading.
 
 6) With more time I could have added a more heirarchical output
+
+--- Version 1.1 Updates Oct 27, 2018
+
+Refactored the code to not use hashes and instead a more object oriented solution with a Site object that stores the
+parent child relationship between pages.
+Additionally, the processor treats https:// and http:// prefixes as equals.
+Added the ignoring of anchor links within pages (i.e. urls containing the hash character)
+Added an integration test.  To launch mvn clean install -DskipTests=false
+Made the code a bit more interactive as it's processing sites by displaying the current page.

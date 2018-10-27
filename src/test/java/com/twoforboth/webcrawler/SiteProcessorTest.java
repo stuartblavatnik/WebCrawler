@@ -22,7 +22,7 @@ public class SiteProcessorTest {
     private SiteProcessor siteProcessor;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -31,12 +31,12 @@ public class SiteProcessorTest {
 
         URL url = new URL("http://www.google.com");
 
-        Mockito.when(webParserMock.getPageLinks(url)).thenReturn(new ArrayList<>());
+        Mockito.when(webParserMock.getPageLinks(url.toString())).thenReturn(new ArrayList<>());
         siteProcessor.setWebParser(webParserMock);
 
-        siteProcessor.process(url);
+        siteProcessor.process(url.toString());
 
-        Assert.assertEquals(url.toString() + System.lineSeparator(), siteProcessor.getReport());
+        Assert.assertEquals(url.toString(), siteProcessor.getReport());
     }
 
     @Test
@@ -45,13 +45,27 @@ public class SiteProcessorTest {
         URL parentUrl = new URL("http://www.google.com");
         URL childUrl = new URL("http://www.google.com/coolpic.png");
 
-        Mockito.when(webParserMock.getPageLinks(parentUrl)).thenReturn(new ArrayList<>(Collections.singletonList(childUrl)));
+        Mockito.when(webParserMock.getPageLinks(parentUrl.toString())).thenReturn(new ArrayList<>(Collections.singletonList(childUrl.toString())));
         siteProcessor.setWebParser(webParserMock);
 
-        siteProcessor.process(parentUrl);
+        siteProcessor.process(parentUrl.toString());
 
-        Assert.assertEquals(parentUrl.toString() + System.lineSeparator() + "\t" + childUrl + System.lineSeparator() + childUrl.toString() + System.lineSeparator(), siteProcessor.getReport());
+        Assert.assertEquals(parentUrl.toString() + System.lineSeparator() + "\t" + childUrl, siteProcessor.getReport());
     }
 
+    @Test
+    public void shouldReturnParentParentChildWhenProcess() throws IOException {
 
+        URL parentUrl = new URL("http://www.google.com");
+        URL childUrl = new URL("http://www.google.com/subpage1.html");
+        URL grandChildUrl = new URL("http://www.google.com/subpage1.html/coolpic.png");
+
+        Mockito.when(webParserMock.getPageLinks(parentUrl.toString())).thenReturn(new ArrayList<>(Collections.singletonList(childUrl.toString())));
+        Mockito.when(webParserMock.getPageLinks(childUrl.toString())).thenReturn(new ArrayList<>(Collections.singletonList(grandChildUrl.toString())));
+        siteProcessor.setWebParser(webParserMock);
+
+        siteProcessor.process(parentUrl.toString());
+
+        Assert.assertEquals(parentUrl.toString() + System.lineSeparator() + "\t" + childUrl + System.lineSeparator() + "\t\t" + grandChildUrl, siteProcessor.getReport());
+    }
 }

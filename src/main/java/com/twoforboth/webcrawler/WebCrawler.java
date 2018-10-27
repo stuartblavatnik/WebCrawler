@@ -15,7 +15,7 @@ public class WebCrawler {
 
         try {
             siteProcessor.setWebParser(new WebParser());
-            siteProcessor.process(url);
+            siteProcessor.process(url.toString());
         }
         catch (Exception exception) {
             System.out.println("Error processing.");
