@@ -6,7 +6,7 @@ content.  It's output will be a simple structured site map containing all of the
 
 
 Requirements:
-1) Java 1.8
+1) Java 1.9
 2) Maven 3.5.2
 
 This project is a maven project and supports the following standard commands to do the following:
